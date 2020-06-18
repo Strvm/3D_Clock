@@ -4,16 +4,12 @@
 
 
 //ThreeJS variables.
-let camera, scene, renderer,
-    geometry, material, mesh, controls;
-
+let camera, scene, renderer, controls;
 let light = new THREE.PointLight(0xffffff, 1.1, 500, 1);
-
 const fontLoader = new THREE.FontLoader();
 const selectedTimeZone = document.querySelector('.timeZones').value;
 let textGeometry, textMesh;
 let previousTime;
-
 
 renderer = new THREE.WebGLRenderer({
     alpha: true
@@ -33,7 +29,6 @@ let options = {
 function init() {
     //Camera position
     camera.position.z = 1;
-
     scene = new THREE.Scene();
     renderer.setSize(window.innerWidth, window.innerHeight);
     const time = formatter.format(new Date());
@@ -44,9 +39,6 @@ function init() {
     controls.enableKeys = false;
     document.body.appendChild(renderer.domElement);
 }
-
-
-
 
 
 function animate() {
@@ -64,6 +56,7 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 })
 
+//Set time on screen
 function setTime(time) {
     fontLoader.load('./fonts/Digital Dismay_Regular.json', function(font) {
         if (textMesh !== undefined) scene.remove(textMesh);
@@ -85,7 +78,7 @@ function setTime(time) {
     });
 
 }
-
+//Update time if needed every second.
 function updateTime() {
     setInterval(function() {
         if (previousTime !== formatter.format(new Date())) {
@@ -112,6 +105,7 @@ function backgroundTime(time) {
     document.body.style.backgroundColor = `rgb(0, ${g}, ${b})`;
 }
 
+//Update time when selector is changed.
 document.querySelector('.timeZones').addEventListener('input', event => {
     options.timeZone = event.target.value;
     formatter = new Intl.DateTimeFormat([], options);
@@ -124,7 +118,7 @@ document.querySelector('.timeZones').addEventListener('input', event => {
 
 
 
-
+//Function calls.
 updateTime();
 init();
 animate();

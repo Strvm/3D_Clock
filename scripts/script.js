@@ -98,17 +98,16 @@ function updateTime() {
 }
 
 
-
+//Changes background color depending on time.
 function backgroundTime(time) {
-    let hour = parseInt(previousTime.substr(0, previousTime.indexOf(':')));
+    const hour = parseInt(previousTime.substr(0, previousTime.indexOf(':')));
     let g = 0;
     let b = 0;
-    hour = 23;
-    if (hour !== 0) {
-        //Brightess color chosses has g = 201 and b = 255, so those values are divided by 24.
 
+    if (hour !== '00') {
+        //Brightess color chosses has g = 201 and b = 255, so those values are divided by 24.
         g = (hour / 8.375) * 255;
-        b = (hour / 10.625) * 255;
+        b = (hour/ 10.625) * 255;
     }
     document.body.style.backgroundColor = `rgb(0, ${g}, ${b})`;
 }
